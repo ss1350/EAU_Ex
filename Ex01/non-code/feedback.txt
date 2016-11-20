@@ -1,0 +1,76 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Some simple documentation of the method might help
+	understanding it's functionality.
+
+# <<< Start of code
+def isort(unsortiert):
+	"""Sort a list of objects using the insertion sort algorithm.
+	
+	Some longer description here ...
+	"""
+# <<< End of code
+
+	Some style-hints:
+		- Mathematical operators are separated with "space" in python:
+			"pos+1" should be "pos + 1"
+			"pos+=1" -> "pos += 1"
+		- Comments are indented the same ways as the following code.
+		- There should be two blank lines between methods.
+		- Don't use german "Umlaute" in code-comments.
+		  It will be easier to run the code on systems with different encoding.
+			The output of python running from console (Windows):
+			SyntaxError: Non-ASCII character '\xc3' in file Ex1.py
+			on line 11, but no encoding declared;
+			see http://python.org/dev/peps/pep-0263/ for details
+		- A "corrected" version is added as "Ex1_Style.py"
+
+	I have added a Makefile to automate testing and running the python script.
+	You can also use an IDE or other tools for this job.
+
+	You should also use a test framework for your function tests.
+	One of the simplest of them is "doctest".
+	You define the test cases with the resulting output underneath
+	in the documentation.
+	The test case is introduced with ">>>" and the result is written below.
+	Example:
+
+# <<< Start of code
+def isort(unsortiert):
+	"""Sort a list of objects using the insertion sort algorithm.
+	
+	Some longer description here ...
+	
+	>>> isort([50, 50, 12, 46, 46, 55])
+	[12, 46, 46, 50, 50, 55]
+	
+	>>> isort([1, 2, 3, 4, 5, 6])
+	[1, 2, 3, 4, 5, 6]
+	
+	And so on ...
+	"""
+# <<< End of code
+
+	The normal way of handling errors in python is to
+	raise / throw an exception.
+	This can be done with:
+		raise TypeError("Eingabe muss eine liste sein")
+
+	You can test if the exception is thrown in a testcase.
+	The exception message has to match with the expected in the test case.
+		Sorting with wrong data type:
+# <<< Start of code
+		  >>> isort(1)
+		  Traceback (most recent call last):
+		  ...
+		  TypeError: Eingabe muss eine liste sein
+# <<< End of code
+
+	Nevertheless: Good job and well tested.
+
+Exercise 2:
+	Correct
+
+Don't hesitate to ask if you need help or something is unclear.

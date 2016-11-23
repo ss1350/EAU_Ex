@@ -1,0 +1,34 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct.
+
+Exercise 2:
+	You forgot a "+1" in the exponent of your equation.
+	This results in a different term for both sides making it hard to find
+	a conclusion.
+	I have added a sheet with the solutions to your repository.
+
+Exercise 3:
+	The benefit of heapsort is that the heap has to be created only once.
+	We have to create a heap-condition for half of the nodes from the bottom up.
+	The other half of the heap are leaves (1 node heaps) and statisfy the
+	heap condition by definition.
+
+	After each operation on this heap we have to repair the heap condition
+	using our repair_heap method to sift the swapped element to its position.
+	You find the example code under "HeapSort.py" together with a runtime
+	plot ("HeapsortComparison.png") in your directory.
+	If you look at the runtime difference you might notice that your algorithm
+	runs in O(n^2) time, while heapsort only needs O(n log n) time.
+	This is due to your main loop:
+	You use heapify for each element of the heap:  O(n)
+	Because heapify iterates half of your heap (with ceil((len(array) - 1) / 2))
+	O(n) times (with ceil(log_2(index + 2))) you generate a runtime of at
+	least O(n).
+	This sums up to O(n) * O(n) = O(n^2) and is runtime-equal to minsort.
+
+	I hope the reference helps to understand the algorithm a bit better.
+
+Don't hesitate to ask if you need help or something is unclear.

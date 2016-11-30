@@ -4,7 +4,6 @@
 
 import math
 import matplotlib.pyplot as plt
-from array import array
 
 
 def heap_sort(array):
@@ -12,8 +11,7 @@ def heap_sort(array):
     zuerst heapify bis Heapcondition hergestellt
     danach erstes Entfernen, repair heap
     so lange, bis nur noch ein Element übrig
-    
-    
+
     keine Liste
     >>> heap_sort(1)
     Traceback (most recent call last):
@@ -31,7 +29,7 @@ def heap_sort(array):
         raise TypeError('must be a list')
     if not len(array) > 0:
         raise ValueError('empty list')
-    
+
     x_list = calc_plotvalues(array)
     heapify(array)
     heap_size = len(array)
@@ -60,7 +58,7 @@ def repair_heap(array, start_index, heap_size):
     Traceback (most recent call last):
         ...
     TypeError: must be a list
-    
+
     negatier Index
     >>> repair_heap([2, 5, 1], -1, 3)
     Traceback (most recent call last):
@@ -73,7 +71,7 @@ def repair_heap(array, start_index, heap_size):
         ...
     ValueError: index out of bound
     """
-    
+
     if not type(array) == list:
         raise TypeError("must be a list")
     if not len(array) > 0:
@@ -82,20 +80,21 @@ def repair_heap(array, start_index, heap_size):
         raise ValueError("index negative")
     if heap_size > len(array):
         raise ValueError("index out of bound")
-    
+
     while True:
         parent = array[start_index]
-        change = 0
         if (2 * start_index + 1 < heap_size):
             left = array[2 * start_index + 1]
             if (parent < left):
                 parent, left = left, parent
-                array[start_index], array[2 * start_index + 1] = parent, left
+                array[start_index],
+                array[2 * start_index + 1] = parent, left
             if (2 * start_index + 2 < heap_size):
                 right = array[2 * start_index + 2]
                 if (parent < right):
                     parent, right = right, parent
-                    array[start_index], array[2 * start_index + 2] = parent, right
+                    array[start_index],
+                    array[2 * start_index + 2] = parent, right
             start_index += 1
         else:
             break
@@ -103,10 +102,11 @@ def repair_heap(array, start_index, heap_size):
 
 
 def heapify(array):
-    """initiale heap condition herstellen: repair heap von unten nach oben durchfuehren
+    """initiale heap condition herstellen:
+    repair heap von unten nach oben durchfuehren
     unterste Position: Laenge von array - unterste Ebene: 2 pow tiefe - 2
 
-    
+
     leere Liste
     >>> heapify([])
     Traceback (most recent call last):
@@ -119,16 +119,16 @@ def heapify(array):
         ...
     TypeError: must be a list
     """
-    
+
     if not type(array) == list:
         raise TypeError('must be a list')
     if not len(array) > 0:
         raise ValueError('empty list')
-    
+
     max_index = (len(array) / 2) - 1
-    for i in range(math.floor(max_index),-1,-1):
+    for i in range(math.floor(max_index), -1, -1):
         repair_heap(array, i, len(array))
-    
+
     return array
 
 
@@ -162,7 +162,7 @@ def calc_plotvalues(array):
         x_list.append(i)
         if array[i] > max_value:
             max_value = array[i]
-    plt.axis([0, array_lenght, 0, max_value+1])
+    plt.axis([0, array_lenght, 0, max_value + 1])
     return x_list
 
 
@@ -210,27 +210,27 @@ if __name__ == "__main__":
     """main routine
     Groesster Wert ganz unten
     >>> heap_sort([5, 4, 3, 2, 10])
-    [2, 3, 4, 5, 10]    
-    
+    [2, 3, 4, 5, 10]
+
     unterste Reihe mit einem Element
     >>> heap_sort([5, 4, 3, 1])
-    [1, 3, 4, 5]   
-    
+    [1, 3, 4, 5]
+
     unterste Reihe voll
     >>> heap_sort([5, 4, 3, 1, 44, 11, 30])
     [1, 3, 4, 5, 11, 30, 40]
-    
+
     vorsortierte Liste
     >>> heap_sort([1, 2, 3, 4, 5, 6])
-    [1, 2, 3, 4, 5, 6]    
+    [1, 2, 3, 4, 5, 6]
 
     andersherum sortierte Liste
     >>> heap_sort([6, 5, 4, 3, 2, 1])
-    [1, 2, 3, 4, 5, 6]  
-    
+    [1, 2, 3, 4, 5, 6]
+
     Liste mit doppelten Elementen
     >>> heap_sort([6, 5, 6, 4, 4, 5])
-    [4, 4, 5, 5, 6, 6]      
+    [4, 4, 5, 5, 6, 6]
     """
     import doctest
     doctest.testmod()

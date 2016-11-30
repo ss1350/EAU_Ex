@@ -4,12 +4,16 @@
 
 import math
 import matplotlib.pyplot as plt
+from array import array
 
 
 def heap_sort(array):
-    """Liste von Objekten mit heap sort sortieren, benutzt heapify, repair_heap,
-    calc_plotvalues und show_plot
-
+    """Liste von Objekten mit heap sort sortieren
+    zuerst heapify bis Heapcondition hergestellt
+    danach erstes Entfernen, repair heap
+    so lange, bis nur noch ein Element übrig
+    
+    
     keine Liste
     >>> heap_sort(1)
     Traceback (most recent call last):
@@ -19,156 +23,112 @@ def heap_sort(array):
     leere Liste
     >>> heap_sort([])
     Traceback (most recent call last):
-    ...
+        ...
     ValueError: empty list
-
-    untere Ebene voll
-    >>> heap_sort([10, 4, 1, 5, 2, 3, 11, 3, 9, 1, 2, 3, 45, 5, 6])
-    [1, 1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 9, 10, 11, 45]
-
-    1 weniger als volle untere ebene voll
-    >>> heap_sort([10, 4, 1, 5, 2, 3, 11, 3, 9, 1, 2, 3, 45, 5])
-    [1, 1, 2, 2, 3, 3, 3, 4, 5, 5, 9, 10, 11, 45]
-
-    negative Elemente
-    >>> heap_sort([-10, 4, 1, -5, 11])
-    [-10, -5, 1, 4, 11]
-
-    doppelte Elemente
-    >>> heap_sort([1, 2, 3, 4, 5, 4, 3, 2, 1, 0])
-    [0, 1, 1, 2, 2, 3, 3, 4, 4, 5]
     """
 
-    # Check given parameter data type.
     if not type(array) == list:
         raise TypeError('must be a list')
     if not len(array) > 0:
         raise ValueError('empty list')
-    index = len(array) - 1
-    # Werte für Plot berechnen
+    
     x_list = calc_plotvalues(array)
-    # Wiederholen bis Zeiger auf 0 steht
-    while index >= 0:
-        # heap aufbauen
-        heapify(array, index)
-        # heap reparieren
-        repair_heap(array, index)
-        index -= 1
+    heapify(array)
+    heap_size = len(array)
+    while (heap_size > 1):
+        repair_heap(array, 0, heap_size)
+        array[0], array[heap_size - 1] = array[heap_size - 1], array[0]
+        heap_size -= 1
         show_plot(x_list, array)
     return array
 
 
-def repair_heap(array, index):
-    """root zu sortierten elementen, letztes unsortiertes auf root
+def repair_heap(array, start_index, heap_size):
+    """fängt bei index an und überprüft Kinder. Wenn Kinder größer -> tauschen
+    dann weiter runter siften, bis unten angekommen
+    Kontrolle mit heap_size, ob index out of bounds
+
 
     leere Liste
-    >>> repair_heap([], 0)
+    >>> repair_heap([], 0, 0)
     Traceback (most recent call last):
         ...
     ValueError: empty list
 
     keine Liste
-    >>> repair_heap(4, 0)
+    >>> repair_heap(4, 0, 0)
     Traceback (most recent call last):
         ...
     TypeError: must be a list
-
+    
     negatier Index
-    >>> repair_heap([2, 5, 1], -1)
+    >>> repair_heap([2, 5, 1], -1, 3)
     Traceback (most recent call last):
         ...
     ValueError: index negative
 
     Index ausserhalb
-    >>> repair_heap([2, 5, 1], 3)
+    >>> repair_heap([2, 5, 1], 0, 4)
     Traceback (most recent call last):
         ...
     ValueError: index out of bound
-
-    Index auf letztem Element
-    >>> repair_heap([1,2,3,4,5,6,7,8],6)
-    [7, 2, 3, 4, 5, 6, 1, 8]
-
-    Index auf erstem Element
-    >>> repair_heap([1,2,3,4,5,6,7,8],0)
-    [1, 2, 3, 4, 5, 6, 7, 8]
-
-    Nur 1 Element
-    >>> repair_heap([5], 0)
-    [5]
     """
+    
     if not type(array) == list:
         raise TypeError("must be a list")
     if not len(array) > 0:
         raise ValueError("empty list")
-    if index < 0:
+    if start_index < 0:
         raise ValueError("index negative")
-    if index > len(array) - 1:
+    if heap_size > len(array):
         raise ValueError("index out of bound")
-    # Wurzel entfernen, mit letztem Wert austauschen
-    array[0], array[index] = array[index], array[0]
-    # index verringern
-    index -= 1
+    
+    while True:
+        parent = array[start_index]
+        change = 0
+        if (2 * start_index + 1 < heap_size):
+            left = array[2 * start_index + 1]
+            if (parent < left):
+                parent, left = left, parent
+                array[start_index], array[2 * start_index + 1] = parent, left
+            if (2 * start_index + 2 < heap_size):
+                right = array[2 * start_index + 2]
+                if (parent < right):
+                    parent, right = right, parent
+                    array[start_index], array[2 * start_index + 2] = parent, right
+            start_index += 1
+        else:
+            break
     return array
 
 
-def heapify(array, max_index):
-    """heap condition ueberpruefen und so lange siften, bis erfüllt
+def heapify(array):
+    """initiale heap condition herstellen: repair heap von unten nach oben durchfuehren
+    unterste Position: Laenge von array - unterste Ebene: 2 pow tiefe - 2
 
+    
     leere Liste
-    >>> heapify([], 0)
+    >>> heapify([])
     Traceback (most recent call last):
         ...
     ValueError: empty list
 
     keine Liste
-    >>> heapify(4, 1)
+    >>> heapify(4)
     Traceback (most recent call last):
         ...
     TypeError: must be a list
-
-    negativer Index
-    >>> heapify([2,5,1], -1)
-    Traceback (most recent call last):
-        ...
-    ValueError: index negative
-
-    Index außerhalb d. Grenzen
-    >>> heapify([2,5,1], 3)
-    Traceback (most recent call last):
-        ...
-    ValueError: index out of bound
-
-    Index auf 0, keine Aktion
-    >>> heapify([2,5,1], 0)
-    [2, 5, 1]
-
-    Groesster Wert ganz unten
-    >>> heapify([5, 4, 3, 10],3)
-    [10, 5, 3, 4]
     """
+    
     if not type(array) == list:
         raise TypeError('must be a list')
     if not len(array) > 0:
         raise ValueError('empty list')
-    if max_index < 0:
-        raise ValueError('index negative')
-    if max_index > len(array) - 1:
-        raise ValueError('index out of bound')
-    # muss maximal so oft durchgefuehrt werden wie es Ebenen gibt
-    depth = int(math.ceil(math.log2(len(array) + 1 -
-                (len(array) - max_index - 1))))
-    d = 0
-    while d < depth:
-        for i in range(int(math.ceil((len(array) - 1) / 2))):
-            # Kinder ueberpruefen, Elemente hinter Index nicht tauschen
-            if ((2 * i + 1) <= max_index):
-                if array[i] < array[2 * i + 1]:
-                    array[i], array[2 * i + 1] = array[2 * i + 1], array[i]
-            if ((2 * i + 2) <= max_index):
-                if array[i] < array[2 * i + 2]:
-                    array[i], array[2 * i + 2] = array[2 * i + 2], array[i]
-        d += 1
+    
+    max_index = (len(array) / 2) - 1
+    for i in range(math.floor(max_index),-1,-1):
+        repair_heap(array, i, len(array))
+    
     return array
 
 
@@ -247,13 +207,37 @@ def show_plot(x_list, y_list):
 
 
 if __name__ == "__main__":
+    """main routine
+    Groesster Wert ganz unten
+    >>> heap_sort([5, 4, 3, 2, 10])
+    [2, 3, 4, 5, 10]    
+    
+    unterste Reihe mit einem Element
+    >>> heap_sort([5, 4, 3, 1])
+    [1, 3, 4, 5]   
+    
+    unterste Reihe voll
+    >>> heap_sort([5, 4, 3, 1, 44, 11, 30])
+    [1, 3, 4, 5, 11, 30, 40]
+    
+    vorsortierte Liste
+    >>> heap_sort([1, 2, 3, 4, 5, 6])
+    [1, 2, 3, 4, 5, 6]    
+
+    andersherum sortierte Liste
+    >>> heap_sort([6, 5, 4, 3, 2, 1])
+    [1, 2, 3, 4, 5, 6]  
+    
+    Liste mit doppelten Elementen
+    >>> heap_sort([6, 5, 6, 4, 4, 5])
+    [4, 4, 5, 5, 6, 6]      
+    """
     import doctest
     doctest.testmod()
-    # Create an unsorted list of integers.
-    # numbers = [10, 4, 1, 5, 2, 3, 11, 3, 9]
-    numbers = [10, 41, 11, 51, 21, 31, 11, 35, 90, 54, 99, 24, 68, 22]
-    # Sort the list.
-    print(heap_sort(numbers))
+    numbers = [11, 55, 42, 98, 0, 5, 67, 32, 24]
+    # numbers = [1, 2, 3, 4, 5]
+    print("Eingabe: ", numbers)
+    print("Ergebnis: ", heap_sort(numbers))
 
     while True:
         plt.pause(0.5)

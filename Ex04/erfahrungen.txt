@@ -1,0 +1,206 @@
+Data from program: Input: DE.zip
+
+At first processed with sort, then with associative array. First time: 104 seconds, then 4 seconds.
+Sorting takes much longer because the algorithm has to iterate over the whole list every time to check whether or not there already is an entry with its name.
+
+
+
+End Of File
+Neuenkirchen:	10
+Hausen:	9
+Neukirchen:	8
+         139690577 function calls in 104.893 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.002    0.002  104.893  104.893 <string>:1(<module>)
+        4    0.000    0.000    0.051    0.013 PyShell.py:1336(write)
+        1   70.189   70.189  104.891  104.891 geo_names_analyzer.py:51(compute_most_frequent_city_names_by_sorting)
+    11247    0.002    0.000    0.002    0.000 geo_names_analyzer.py:74(<lambda>)
+   187354    2.107    0.000    4.209    0.000 geo_names_analyzer.py:9(read_info_from_file)
+       35    0.000    0.000    0.000    0.000 rpc.py:150(debug)
+        5    0.000    0.000    0.051    0.010 rpc.py:213(remotecall)
+        5    0.000    0.000    0.001    0.000 rpc.py:223(asynccall)
+        5    0.000    0.000    0.050    0.010 rpc.py:243(asyncreturn)
+        5    0.000    0.000    0.000    0.000 rpc.py:249(decoderesponse)
+        5    0.000    0.000    0.050    0.010 rpc.py:287(getresponse)
+        5    0.000    0.000    0.000    0.000 rpc.py:295(_proxify)
+        5    0.000    0.000    0.049    0.010 rpc.py:303(_getresponse)
+        5    0.000    0.000    0.000    0.000 rpc.py:325(newseq)
+        5    0.000    0.000    0.001    0.000 rpc.py:329(putmessage)
+        4    0.000    0.000    0.033    0.008 rpc.py:551(__getattr__)
+        1    0.000    0.000    0.033    0.033 rpc.py:569(__getmethods)
+        5    0.000    0.000    0.000    0.000 rpc.py:57(dumps)
+        4    0.000    0.000    0.000    0.000 rpc.py:592(__init__)
+        4    0.000    0.000    0.018    0.005 rpc.py:597(__call__)
+       10    0.000    0.000    0.000    0.000 threading.py:1224(current_thread)
+        5    0.000    0.000    0.000    0.000 threading.py:213(__init__)
+        5    0.000    0.000    0.049    0.010 threading.py:261(wait)
+        6    0.000    0.000    0.000    0.000 threading.py:72(RLock)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1085(_RealGetContents)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1194(getinfo)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1235(open)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1593(__del__)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1597(close)
+        2    0.000    0.000    0.000    0.000 zipfile.py:1715(_fpclose)
+        1    0.000    0.000    0.000    0.000 zipfile.py:191(_EndRecData64)
+        1    0.000    0.000    0.000    0.000 zipfile.py:234(_EndRecData)
+        2    0.000    0.000    0.000    0.000 zipfile.py:320(__init__)
+        2    0.000    0.000    0.000    0.000 zipfile.py:436(_decodeExtra)
+        1    0.000    0.000    0.000    0.000 zipfile.py:605(_check_compression)
+        1    0.000    0.000    0.000    0.000 zipfile.py:636(_get_decompressor)
+        1    0.000    0.000    0.000    0.000 zipfile.py:654(__init__)
+     1448    0.010    0.000    0.060    0.000 zipfile.py:660(read)
+        1    0.000    0.000    0.000    0.000 zipfile.py:667(close)
+        1    0.000    0.000    0.000    0.000 zipfile.py:708(__init__)
+   187354    0.429    0.000    1.076    0.000 zipfile.py:755(readline)
+    12204    0.036    0.000    0.474    0.000 zipfile.py:805(peek)
+    18310    0.058    0.000    0.467    0.000 zipfile.py:821(read)
+     6105    0.009    0.000    0.048    0.000 zipfile.py:854(_update_crc)
+     6105    0.052    0.000    0.403    0.000 zipfile.py:901(_read1)
+     1446    0.007    0.000    0.070    0.000 zipfile.py:937(_read2)
+        1    0.000    0.000    0.000    0.000 zipfile.py:953(close)
+        1    0.000    0.000    0.001    0.001 zipfile.py:981(__init__)
+        5    0.000    0.000    0.000    0.000 {built-in method _struct.pack}
+        5    0.000    0.000    0.000    0.000 {built-in method _struct.unpack}
+        5    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+       10    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.chr}
+        1    0.000    0.000  104.893  104.893 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+       12    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+   298021    0.047    0.000    0.047    0.000 {built-in method builtins.len}
+     7551    0.009    0.000    0.009    0.000 {built-in method builtins.max}
+     1446    0.001    0.000    0.001    0.000 {built-in method builtins.min}
+        2    0.000    0.000    0.051    0.026 {built-in method builtins.print}
+        1    0.005    0.005    0.007    0.007 {built-in method builtins.sorted}
+        1    0.000    0.000    0.000    0.000 {built-in method io.open}
+        5    0.000    0.000    0.000    0.000 {built-in method select.select}
+     6106    0.040    0.000    0.040    0.000 {built-in method zlib.crc32}
+        1    0.000    0.000    0.000    0.000 {built-in method zlib.decompressobj}
+        1    0.000    0.000    0.000    0.000 {function ZipExtFile.close at 0x03455660}
+        5    0.000    0.000    0.000    0.000 {method '_acquire_restore' of '_thread.RLock' objects}
+        5    0.000    0.000    0.000    0.000 {method '_is_owned' of '_thread.RLock' objects}
+        5    0.000    0.000    0.000    0.000 {method '_release_save' of '_thread.RLock' objects}
+        5    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.RLock' objects}
+       10    0.049    0.005    0.049    0.005 {method 'acquire' of '_thread.lock' objects}
+        5    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+    33745    0.013    0.000    0.013    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 {method 'close' of '_io.BufferedReader' objects}
+   187357    0.162    0.000    0.162    0.000 {method 'decode' of 'bytes' objects}
+     6105    0.223    0.000    0.223    0.000 {method 'decompress' of 'zlib.Decompress' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        5    0.000    0.000    0.000    0.000 {method 'dump' of '_pickle.Pickler' objects}
+   187354    0.140    0.000    0.140    0.000 {method 'find' of 'bytes' objects}
+ 70141217   21.372    0.000   21.372    0.000 {method 'find' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'flush' of 'zlib.Decompress' objects}
+        5    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        5    0.000    0.000    0.000    0.000 {method 'getvalue' of '_io.BytesIO' objects}
+     1451    0.033    0.000    0.033    0.000 {method 'read' of '_io.BufferedReader' objects}
+        8    0.000    0.000    0.000    0.000 {method 'read' of '_io.BytesIO' objects}
+        5    0.000    0.000    0.000    0.000 {method 'release' of '_thread.RLock' objects}
+     1452    0.003    0.000    0.003    0.000 {method 'seek' of '_io.BufferedReader' objects}
+        5    0.001    0.000    0.001    0.000 {method 'send' of '_socket.socket' objects}
+ 68385477    9.878    0.000    9.878    0.000 {method 'strip' of 'str' objects}
+     1449    0.015    0.000    0.015    0.000 {method 'tell' of '_io.BufferedReader' objects}
+
+
+End Of File
+Neuenkirchen:	10
+Hausen:	9
+Neukirchen:	8
+         3953456 function calls in 4.263 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    4.263    4.263 <string>:1(<module>)
+        4    0.000    0.000    0.059    0.015 PyShell.py:1336(write)
+        1    0.167    0.167    4.262    4.262 geo_names_analyzer.py:117(compute_most_frequent_city_names_by_map)
+   187354    2.062    0.000    4.017    0.000 geo_names_analyzer.py:9(read_info_from_file)
+       28    0.000    0.000    0.000    0.000 rpc.py:150(debug)
+        4    0.000    0.000    0.059    0.015 rpc.py:213(remotecall)
+        4    0.000    0.000    0.001    0.000 rpc.py:223(asynccall)
+        4    0.000    0.000    0.059    0.015 rpc.py:243(asyncreturn)
+        4    0.000    0.000    0.000    0.000 rpc.py:249(decoderesponse)
+        4    0.000    0.000    0.059    0.015 rpc.py:287(getresponse)
+        4    0.000    0.000    0.000    0.000 rpc.py:295(_proxify)
+        4    0.000    0.000    0.059    0.015 rpc.py:303(_getresponse)
+        4    0.000    0.000    0.000    0.000 rpc.py:325(newseq)
+        4    0.000    0.000    0.000    0.000 rpc.py:329(putmessage)
+        4    0.000    0.000    0.000    0.000 rpc.py:551(__getattr__)
+        4    0.000    0.000    0.000    0.000 rpc.py:57(dumps)
+        4    0.000    0.000    0.000    0.000 rpc.py:592(__init__)
+        4    0.000    0.000    0.059    0.015 rpc.py:597(__call__)
+        8    0.000    0.000    0.000    0.000 threading.py:1224(current_thread)
+        4    0.000    0.000    0.000    0.000 threading.py:213(__init__)
+        4    0.000    0.000    0.059    0.015 threading.py:261(wait)
+        5    0.000    0.000    0.000    0.000 threading.py:72(RLock)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1085(_RealGetContents)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1194(getinfo)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1235(open)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1593(__del__)
+        1    0.000    0.000    0.000    0.000 zipfile.py:1597(close)
+        2    0.000    0.000    0.000    0.000 zipfile.py:1715(_fpclose)
+        1    0.000    0.000    0.000    0.000 zipfile.py:191(_EndRecData64)
+        1    0.000    0.000    0.000    0.000 zipfile.py:234(_EndRecData)
+        2    0.000    0.000    0.000    0.000 zipfile.py:320(__init__)
+        2    0.000    0.000    0.000    0.000 zipfile.py:436(_decodeExtra)
+        1    0.000    0.000    0.000    0.000 zipfile.py:605(_check_compression)
+        1    0.000    0.000    0.000    0.000 zipfile.py:636(_get_decompressor)
+        1    0.000    0.000    0.000    0.000 zipfile.py:654(__init__)
+     1448    0.007    0.000    0.030    0.000 zipfile.py:660(read)
+        1    0.000    0.000    0.000    0.000 zipfile.py:667(close)
+        1    0.000    0.000    0.000    0.000 zipfile.py:708(__init__)
+   187354    0.405    0.000    0.949    0.000 zipfile.py:755(readline)
+    12204    0.033    0.000    0.377    0.000 zipfile.py:805(peek)
+    18310    0.054    0.000    0.372    0.000 zipfile.py:821(read)
+     6105    0.008    0.000    0.043    0.000 zipfile.py:854(_update_crc)
+     6105    0.044    0.000    0.312    0.000 zipfile.py:901(_read1)
+     1446    0.006    0.000    0.038    0.000 zipfile.py:937(_read2)
+        1    0.000    0.000    0.000    0.000 zipfile.py:953(close)
+        1    0.000    0.000    0.001    0.001 zipfile.py:981(__init__)
+        4    0.000    0.000    0.000    0.000 {built-in method _struct.pack}
+        5    0.000    0.000    0.000    0.000 {built-in method _struct.unpack}
+        4    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        8    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.chr}
+        1    0.000    0.000    4.263    4.263 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+       10    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+   263478    0.038    0.000    0.038    0.000 {built-in method builtins.len}
+     7551    0.006    0.000    0.006    0.000 {built-in method builtins.max}
+     1446    0.001    0.000    0.001    0.000 {built-in method builtins.min}
+        2    0.000    0.000    0.059    0.030 {built-in method builtins.print}
+        1    0.004    0.004    0.004    0.004 {built-in method builtins.sorted}
+        1    0.000    0.000    0.000    0.000 {built-in method io.open}
+        4    0.000    0.000    0.000    0.000 {built-in method select.select}
+     6106    0.035    0.000    0.035    0.000 {built-in method zlib.crc32}
+        1    0.000    0.000    0.000    0.000 {built-in method zlib.decompressobj}
+        1    0.000    0.000    0.000    0.000 {function ZipExtFile.close at 0x03455660}
+        4    0.000    0.000    0.000    0.000 {method '_acquire_restore' of '_thread.RLock' objects}
+        4    0.000    0.000    0.000    0.000 {method '_is_owned' of '_thread.RLock' objects}
+        4    0.000    0.000    0.000    0.000 {method '_release_save' of '_thread.RLock' objects}
+        4    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.RLock' objects}
+        8    0.059    0.007    0.059    0.007 {method 'acquire' of '_thread.lock' objects}
+        4    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        4    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 {method 'close' of '_io.BufferedReader' objects}
+   187357    0.146    0.000    0.146    0.000 {method 'decode' of 'bytes' objects}
+     6105    0.180    0.000    0.180    0.000 {method 'decompress' of 'zlib.Decompress' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        4    0.000    0.000    0.000    0.000 {method 'dump' of '_pickle.Pickler' objects}
+   187354    0.137    0.000    0.137    0.000 {method 'find' of 'bytes' objects}
+  2312442    0.758    0.000    0.758    0.000 {method 'find' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'flush' of 'zlib.Decompress' objects}
+        5    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        4    0.000    0.000    0.000    0.000 {method 'getvalue' of '_io.BytesIO' objects}
+        1    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+     1451    0.016    0.000    0.016    0.000 {method 'read' of '_io.BufferedReader' objects}
+        8    0.000    0.000    0.000    0.000 {method 'read' of '_io.BytesIO' objects}
+        4    0.000    0.000    0.000    0.000 {method 'release' of '_thread.RLock' objects}
+     1452    0.002    0.000    0.002    0.000 {method 'seek' of '_io.BufferedReader' objects}
+        4    0.000    0.000    0.000    0.000 {method 'send' of '_socket.socket' objects}
+   556702    0.090    0.000    0.090    0.000 {method 'strip' of 'str' objects}
+     1449    0.006    0.000    0.006    0.000 {method 'tell' of '_io.BufferedReader' objects}

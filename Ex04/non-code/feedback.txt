@@ -1,0 +1,81 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1 / 2 / 3 / 4:
+	If you want to read the file line by line interleaved with processing each
+	line you can use a "yield" statement.
+	The value returned by the function will be iterable and contain the values
+	returned with yield.
+
+	You can simply split a line in python via the "split" function.
+	This results in an list with all strings separated at the passed sequence.
+
+	Here is the code for the exercise 1/2/3 implemented using the
+	"yield" operator omitting the filtering by country "de".
+
+def read_info_from_file(filename):
+	"""..."""
+	zfile = zipfile.ZipFile(filename + ".zip")
+	file = zfile.open(filename + ".txt")
+	
+	for line in file:
+		line = line.decode("utf8").strip()
+		
+		if line.startswith("#"):
+			continue; # parse next line
+		
+		# split the line at each tab character
+		line_parts = line.split("\t")
+		
+		if "P" not in line_parts[6]:
+			continue; # parse next line
+		
+		inhabitants = int(line_parts[14].strip())
+		if inhabitants <= 0:
+			continue; # parse next line
+		
+		locality = line_parts[1].strip().lower()
+		country = line_parts[8].strip().lower()
+		
+		# return a tuple with data and continue with next line
+		yield (locality, country)
+
+def compute_most_frequent_city_names_by_sorting(filename):
+	"""..."""
+	names = []
+	for (locality, country) in read_info_from_file(filename):
+		names.append((locality, country))
+	
+	# Sort localities by name
+	names.sort(key = lambda v: v[0])
+	
+	i = 0
+	counted_names = []
+	
+	# iterate all localities grouped by the locality name
+	for j in range(1, len(names)):
+		if names[j][0] != names[i][0]: # has the name changed
+			counted_names.append((names[i][0], j - i))
+			j = i
+			continue
+	
+	# include last group if not included yet
+	if i != len(names)-1:
+		counted_names.append((names[i][0], len(names) - i))
+	
+	return sorted(counted_names, key = lambda v: v[1], reverse = True)
+
+def compute_most_frequent_city_names_by_map(filename):
+	"""..."""
+	names = {}
+	for (locality, country) in read_info_from_file(filename):
+		names[locality] = names.get(locality, 0) + 1
+	
+	return sorted(list(counted_names), key = lambda v: v[1], reverse = True)
+
+	It is easier and faster to process the read data as tuples containing
+	strings instead of strings concatenated to one long string per entry.
+	You can sort list of these tuples with the sort method using a lambda as
+	selector for the sort key.
+
+Don't hesitate to ask if you need help or something is unclear.

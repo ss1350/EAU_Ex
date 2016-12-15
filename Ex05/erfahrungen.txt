@@ -1,0 +1,33 @@
+Output from Ex05.py:
+
+Estimate Case:  With universal hash: 
+Maximum C: 0
+Minimum C: 0.0
+Average C: 0.0
+
+With non-universal hash: 
+Maximum C: 15.0
+Minimum C: 5.0
+Average C: 6.175158730158788
+
+
+p over u improves the hashmap significantly. 
+In the case where there are more buckets than keyset sizes (m > n) there 
+is a good chance, that the expected value of searches per bucket reaches 1. 
+Therefore c has to be zero to kill the term S/M as shown in Minimum C 
+with universal hash - according to this the results make sense
+
+A c value of 0 can not be reached by the non-universal hash, because mod p
+limits the different buckets to 10 (mod m at the end does nothing).
+1 + 5 * 20/100 = 2 keys per Bucket.
+
+In addition, the non-universal hash reaches the worst c value of 15. 
+This result makes sense, beacause it means that there was a case where 
+many keys were stored in one bucket. 1 + 15 * 20/100 = 4, which 
+doesn't seem so unlikely.
+
+The higher p is the more different results can come out of the term (ax + b)%p.
+It being a prime number decreases the chance of same results in being divided
+by m.
+As already stated, if it is smaller than m, there is no need to do 
+the last modulo operation at all.

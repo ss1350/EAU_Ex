@@ -1,0 +1,33 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+You could create a simple list of u unique values and then choose k values
+with the random.sample function:
+
+random.sample:
+"Return a k length list of unique elements chosen from the population
+sequence or set"
+
+This can be combined with range() to create a set of n elements:
+def create_random_universe_subset(k, u):
+	return random.sample(range(u), k)
+
+Care about the style of your code.
+The lint (flake8) check reports 44 violations with 28 of them corresponding
+to missing / too much empty lines and trailing / missing whitespace.
+If you want to use a maximum line width of 120 characters
+(this is considered the "modern" maximum line width)
+you can use "--max-line-length=120" as argument to flake8:
+$ flake8 *.py -v --max-line-length=120
+
+Blank lines should be completely blank with no additional tab-/spacecharacters
+in it.
+
+You can finish doc-comments in the samle line if they are short enough:
+"""Hello world"""
+
+if-statements are not written in the same line as the following instruction(s):
+	if n < 2:
+		return False
+
+Don't hesitate to ask if you need help or something is unclear.

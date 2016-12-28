@@ -1,0 +1,82 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+_repair_heap_up:
+	You don't need to repair the heap downwards after repairing the heap
+	upwards. This is the case due to the usage of this method.
+	The _repair_heap_up method is only used if a key of one element changes
+	and the assigned key is smaller than the previous one.
+	So the heap condition can only be violated in one direction: upwards
+	Because the swapped element can only get smaller than the previous one
+	the heap condition can not be violated downwards after the swap
+	operation.
+
+def _repair_heap_up(self, index):
+	parent = math.floor((index - 1) / 2)
+	child = index
+	while parent > 0 and self._list[child] < self._list[parent]:
+		self._swap_items(child, parent)
+		child = parent
+		parent = math.floor((parent - 1) / 2)
+
+_repair_heap_down:
+	You are missing following violations of the heap condition if both children
+	are swapped. This is the case when the right child is the smallest.
+	The "break" statement terminates the loop even if the heap condition is not
+	fulfilled for following children.
+	The loop can be "re-looped" with the continue statement.
+	This command re-evaluates the loop condition and then executes the loop
+	again.
+
+def _repair_heap_down(self, index):
+	last_index = self.size() - 1
+	if 2 * index + 1 > last_index:
+		return
+
+	parent = index
+	while True:
+		child_l = 2 * parent + 1
+		child_r = 2 * parent + 2
+		swap_index = parent
+		if 2 * parent + 1 <= last_index and \
+				self._list[child_l] < self._list[swap_index]:
+			swap_index = child_l
+
+		if 2 * parent + 2 <= last_index and \
+				self._list[child_r] < self._list[swap_index]:
+			swap_index = child_r
+		
+		if swap_index != parent:
+			self._swap_items(parent, swap_index)
+			parent = swap_index
+			continue
+
+		break
+
+	You can simplify the _swap_items method because the indices of both elements
+	are already passed as parameter.
+
+def _swap_items(self, i, j):
+	self._list[i], self._list[j] = self._list[j], self._list[i]
+	self._list[i].set_index(i)
+	self._list[j].set_index(j)
+
+change_key:
+	You have to repair the heap downwards too if the new key is bigger than the
+	prevoious one. The queue entry will "sink down" in this case.
+	If the new key is smaller than the old one it can only "rise upwards"
+	and therefore only _repair_heap_up is neccessary to execute.
+	This results in a change_key containing both _repair_heap_down and
+	_repair_heap_up getting executed depending on the difference of the old
+	and new key.
+
+def change_key(self, item, new_key):
+	old_key = item.get_key()
+	item.set_key(new_key)
+	
+	if new_key > old_key:
+		self._repair_heap_down(item.get_index());
+	elsif new_key < old_key:
+		self._repair_heap_up(item.get_index());
+
+Don't hesitate to ask if you need help or something is unclear.

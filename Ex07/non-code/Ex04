@@ -1,0 +1,41 @@
+Ex 04:
+
+
+java.util.ArrayList:
+
+according to the oracle, as elements are added to an ArrayList, its capacity grows automatically. 
+The details of the growth policy are not specified beyond the fact that adding an element has constant amortized time cost.
+
+according to the grow method, new sizes are calculated as follows:
+    int oldCapacity = elementData.length; 
+    int newCapacity = oldCapacity + (oldCapacity >> 1);
+the right shift operator resembles a growth of capacy of +50% of the old size
+
+
+std::vector (C++)
+
+std::vector would reallocate itself with the increased capacity on demand -- i.e. when current capacity is exceeded (when size() == capacity()).
+How much capacity would be added depends on the implementation: usually new_capacity = old_capacity * factor, where factor is somewhere from 1.5 to 2
+The standard doesn't specify a definite value for factor
+
+
+Python's list data type
+
+uses list.resize, not exactly cj = ci * 2
+Quote:
+/* This over-allocates proportional to the list size, making room
+* for additional growth.  The over-allocation is mild, but is
+* enough to give linear-time amortized behavior over a long
+* sequence of appends() in the presence of a poorly-performing
+* system realloc().
+* The growth pattern is:  0, 4, 8, 16, 25, 35, 46, 58, 72, 88, ...
+*/
+new_allocated = (newsize >> 3) + (newsize < 9 ? 3 : 6);
+
+/* check for integer overflow */
+if (new_allocated > PY_SIZE_MAX - newsize) {
+    PyErr_NoMemory();
+    return -1;
+} else {
+    new_allocated += newsize;
+}

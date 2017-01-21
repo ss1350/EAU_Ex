@@ -51,7 +51,7 @@ class HashFunction:
             raise ValueError("Is not 0 ≤ b < p!")
         self.a, self.b, self.p, self.u, self.m = a, b, p, u, m
         self.table = []
-        for i in range(m):
+        for dummy in range(m):
             self.table.append([])
 
     def apply(self, x):
@@ -74,7 +74,7 @@ class HashFunction:
         """clears the table, creates a new one
         """
         self.table = []
-        for i in range(self.m):
+        for dummy in range(self.m):
             self.table.append([])
 
 
@@ -117,7 +117,7 @@ def calvAvgRuntimeAndPlot(h, maxp):
         timeQuicksort = 0
         timeHashtable = 0
         h.clear_table()
-        for i in range(3):
+        for dummy in range(3):
             l = createRandomList(n, n)
             l1 = l[:]
             # quicksort
@@ -136,7 +136,7 @@ def createRandomList(length, maxvalue):
     smaller than maxvaulue
     """
     l = list()
-    for i in range(length):
+    for dummy in range(length):
         l.append(random.randint(0, maxvalue))
     return l
 

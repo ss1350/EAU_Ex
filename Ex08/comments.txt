@@ -1,0 +1,5 @@
+As expected, A(Quicksort) is much slower than B(insertion into hash table)
+at the beginning. It seems like block operations, which would be slower
+in algorithm B play a smaller role than expected in reality. 
+This is because of the size of Cache is sufficiently big to handle the data 
+without too many cache misses.

@@ -1,0 +1,47 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Correct
+
+Exercise 2:
+	Take a look at the module timeit. It takes care about Pyhton internal
+	details which might influence the performance measure.
+
+	The timeit method accepts a setup method which gets called before
+	measuring the performance. After that the statement from the "stmt"
+	parameter gets measured.
+
+def test1():
+    """empty array, 10M append operations"""
+    size = 10000000
+    samples = 100  # 100 measure points
+
+    # use an inner function for the loop
+    def testFnc(n, array):
+        for i in range(n):
+            array.append(random.randint(0, 1000000))
+
+    t1 = DynamicIntArray()
+    runtime = 0.0
+    factor = int(size / samples)
+    for n in range(0, samples + 1):
+        n *= factor
+        runtime += timeit(stmt=lambda: testFnc(factor, t1),
+                          setup='import random\n',
+                          number=1)
+        print("%d\t%.5f" % (n, runtime))
+
+	I have added a graph of the measured data with the method described above.
+	The expected "bumps" are clearly visible.
+
+	Don't measure each data point (and dont print it to the console) since
+	this adds noise through buffering / console-io to your measurement.
+
+Exercise 3:
+	Correct
+
+Exercise 4 (5):
+	Great!
+
+Don't hesitate to ask if you need help or something is unclear.

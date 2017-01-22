@@ -2,6 +2,7 @@
 
 import random
 from itertools import count, islice
+from random import randint
 import math
 # import matplotlib.pyplot as plt -> VERY SLOW?
 
@@ -53,6 +54,13 @@ class HashFunction:
         self.table = []
         for dummy in range(m):
             self.table.append([])
+
+    def set_random_parameters(self):
+        """set randoms for a and b, no return
+        """
+        self.a = randint(1, self.p - 1)
+        self.b = randint(0, self.p)
+        # print(self.a, self.b)
 
     def apply(self, x):
         """apply hash function specified above to a given
@@ -116,7 +124,6 @@ def calvAvgRuntimeAndPlot(h, maxp):
         n = pow(2, p)
         timeQuicksort = 0
         timeHashtable = 0
-        h.clear_table()
         for dummy in range(3):
             l = createRandomList(n, n)
             l1 = l[:]
@@ -128,6 +135,7 @@ def calvAvgRuntimeAndPlot(h, maxp):
             # hash table
             timeHashtable += timeit.timeit(stmt=lambda: testFnc(l1, h),
                                            number=1)
+            h.clear_table()
         yield(n, timeQuicksort/3, timeHashtable/3)
 
 
@@ -145,12 +153,13 @@ if __name__ == "__main__":
     import timeit
     meanTimeQuicksort = 0
     meanTimeHashtable = 0
-    u = 100
-    m = 100
-    p = 101
-    k = 20
-    n = 1000
+    # universe size = pow(2, maxp), universe size of biggest possible universe
+    u = pow(2, 25)
+    m = pow(2, 11)
+    # prime number bigger than universe size
+    p = pow(2, 31) - 1
     h = HashFunction(1, 0, p, u, m)
+    h.set_random_parameters()
 
     def testFnc(l1, h):
         for i in range(len(l1) - 1):
@@ -168,7 +177,9 @@ if __name__ == "__main__":
         meanTimeHashtable += timeit.timeit(stmt=lambda: testFnc(l1, h),
                                            number=1)
         h.clear_table()
-    # print(meanTimeQuicksort, meanTimeHashtable)
+    # ex02
+    print(meanTimeQuicksort, meanTimeHashtable)
+    # ex03
     maxp = 25
     gen = calvAvgRuntimeAndPlot(h, maxp)
     print("n" + "\t" + "tQuick" + "\t" + "tHeap")

@@ -11,14 +11,17 @@ swap operations after comparing every item with the pivot.
 In the worst case, all elements go into the same bucket. Depending on the algorithm,
 the new element gets appended to a list (O(1)) or jumps to other positions in the hash
 table, only to see that those are already occupied (O(n)).
-Overall: O(n^2), with the initial O(n) of the first insertion try
+Overall: O(n), with the initial O(n) of the first insertion try, because we use the 
+linked list from Ex05
 
 Block Operations:
 (A) is an in place algorithm. This means that even in the worst case, there are still
 not more operations needed. O(n/b log (n/b))
 
 (B) in the worst case, every newly added element has to be stored into a bucket from a 
-different cache block (if the tablesize >> cache block size), therefore O(n)
+different cache block (if the tablesize >> cache block size or all in one bucket), 
+therefore O(n). When a linked list is used, (like in ex05), accessing those elements 
+and sorting new ones should give a lot of cache misses.
 Normally, with an even distribution of elements over the hashtable: Ɵ(n/b)
 
 

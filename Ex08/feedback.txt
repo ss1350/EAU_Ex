@@ -1,0 +1,39 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+Number of operations: (worst case)
+	Quicksort: Correct
+	Non-Universal hash map:
+		Since we have to check if an element is already present in our map
+		we have to iterate the whole list in our single bucket.
+		This results in a runtime of O(n^2).
+
+Number of block operations: (worst case)
+	Quicksort: Correct
+	Non-Universal hash map: Correct
+
+Which one is faster?: Correct
+
+Exercise 2:
+	Since an entry with the same key might already be in the bucket of your hash
+	map you should check the bucket.
+
+    def apply(self, x):
+        """apply hash function specified above to a given
+        key value and return hash table index
+        """
+        index = ((self.a * x + self.b) % self.p) % self.m
+        bucket = self.table[index]
+        if not x in bucket:
+            bucket.append(x)
+
+        return index
+
+Exercise 3:
+	Correct
+
+Exercise 4:
+	Correct
+
+Don't hesitate to ask if you need help or something is unclear.

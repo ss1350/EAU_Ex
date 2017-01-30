@@ -3,38 +3,12 @@
 import numpy as np
 import math
 
-"""program that proves experimentally that the algorithm satisfies the calculated
+"""program that proves experimentally that the algorithm
+satisfies the calculated
 time complexity.
-plot for [col=2:3] 'points.txt' using 1:col with lines title columnheader
+plot for [col=2:3] 'points.txt' using 1:col with lines
+title columnheader
 """
-
-def ex02old(a):
-    """Ex02:
-    T(n) = 4 * T(n/2) + n²
-    calculated time complexity: n²log(n)
-    4 calls of size n/2
-    takes subarray a, splits into 4 pieces of size len(a)/2
-    recombines solution with an n² runtime
-    """
-    # print(a)
-    # trivial case:
-    if len(a) <= 1:
-        # print("last call")
-        return a
-    # create subarrays of size len(a)/2
-    l1, l2 = np.array_split(a, 2)
-    l3, l4 = l1, l2
-    # 4 subproblems
-    a1 = ex02(l1)
-    a2 = ex02(l2)
-    a3 = ex02(l3)
-    a4 = ex02(l4)
-    # recombination, n²: len(a1) = n/2, n²=(n/2 + n/2) * (n/2 + n/2)
-    length = math.ceil((len(a1) + len(a2) + len(a3) + len(a4)) / 2)
-    for i in range(length):
-        for j in range(length):
-            a[i] = np.random.randint(10) + j
-    return a
 
 
 def ex02(a):
@@ -62,6 +36,31 @@ def ex02(a):
     return a
 
 
+# def ex02old(a):
+#     """Note: working with arrays makes runtimes
+#     less likely to fit the calculation!
+#     """
+#     # print(a)
+#     # trivial case:
+#     if len(a) <= 1:
+#         # print("last call")
+#         return a
+#     # create subarrays of size len(a)/2
+#     l1, l2 = np.array_split(a, 2)
+#     l3, l4 = l1, l2
+#     # 4 subproblems
+#     a1 = ex02(l1)
+#     a2 = ex02(l2)
+#     a3 = ex02(l3)
+#     a4 = ex02(l4)
+#     # recombination, n²: len(a1) = n/2, n²=(n/2 + n/2) * (n/2 + n/2)
+#     length = math.ceil((len(a1) + len(a2) + len(a3) + len(a4)) / 2)
+#     for i in range(length):
+#         for j in range(length):
+#             a[i] = np.random.randint(10) + j
+#     return a
+
+
 if __name__ == "__main__":
     import timeit
     print("n" + "\t" + "tExpAlgo2" + "\t" + "tCalcAlgo2")
@@ -71,11 +70,10 @@ if __name__ == "__main__":
     l0 = np.random.randint(1000, size=n)
     for dummy in range(10):
         timeex02 += timeit.timeit(stmt=lambda: ex02(n),
-                                       setup="from __main__ import " +
-                                       "ex02", number=1)
+                                  setup="from __main__ import " + "ex02",
+                                  number=1)
         timecalc02 = (pow(n, 2) * math.log10(n))
         print(str(n) + "\t" + str(timeex02) + "\t" + str(timecalc02) + "\t")
-        # np.append(l0, np.random.randint(1000, size=n))
         n *= 2
 
 # EOF

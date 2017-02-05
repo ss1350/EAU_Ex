@@ -1,17 +1,34 @@
 #!/usr/bin/python3
 
+import timeit
+import random
+
+"""Plotted with gnuplot,
+    set logscale x 10
+    plot for [col=2:4:2] 'plotpoints.txt' using 1:col with lines title
+    columnheader
+    plot for [col=3:5:2] 'plotpoints.txt' using 1:col with lines title
+    columnheader
+"""
+
 
 class BinarySearchTree:
     """combined data structures: linked list and binary tree
     >>> tree = BinarySearchTree()
     >>> tree.to_string()
     'null'
+    >>> tree.getDepth()
+    0
     >>> tree.insert("a")
     Traceback (most recent call last):
         ...
     TypeError: Not of node type
     >>> tree.insert(node(4, "a"))
+    >>> tree.getDepth()
+    0
     >>> tree.insert(node(3, "b"))
+    >>> tree.getDepth()
+    1
     >>> tree.insert(node(5, "c"))
     >>> tree.lookup(5).getValue()
     'c'
@@ -29,6 +46,7 @@ class BinarySearchTree:
         self.root = None
         self.head = node()
         self.last = self.head
+        self.depth = 0
 
     def insert(self, n):
         """insert a node into data structure
@@ -46,11 +64,13 @@ class BinarySearchTree:
             n.pre = self.head
             n.nxt = self.head
             return
-        if (self.lookup(n.getKey()) is not None):
+        tmp = self.lookup(n.getKey())
+        if (tmp is not None):
             # key already in, change value
-            self.lookup(n.getKey()).setValue(n.getValue())
+            tmp.setValue(n.getValue())
             return
         cur = self.root
+        level = 0
         while(cur is not None):
             if n.key < cur.key:
                 if cur.childL is None:
@@ -60,7 +80,12 @@ class BinarySearchTree:
                     cur.pre = n
                     cur.childL = n
                     n.parent = cur
+                    level += 1
+                    # increment depth if creating a new layer
+                    if cur.childR is None and level > self.depth:
+                        self.depth = level
                     break
+                level += 1
                 cur = cur.childL
             if n.key >= cur.key:
                 if cur.childR is None:
@@ -70,7 +95,12 @@ class BinarySearchTree:
                     cur.nxt = n
                     cur.childR = n
                     n.parent = cur
+                    level += 1
+                    # increment depth if creating a new layer
+                    if cur.childL is None and level > self.depth:
+                        self.depth = level
                     break
+                level += 1
                 cur = cur.childR
         self.itemCount += 1
 
@@ -103,6 +133,42 @@ class BinarySearchTree:
         else:
             s = "null"
         return s
+
+    def getDepth(self):
+        """outputs the maximum depth of the binary tree
+        """
+        return self.depth
+
+    def getItemCount(self):
+        """outputs number of elements
+        """
+        return self.itemCount
+
+# --------- gives recursion depth errors! not suited for n > 2^11 --------
+#     def getDepth(self):
+#         """measures depth of the tree
+#         """
+#         count = self.recursiveDepth(self.root, 0, "0")
+#         return count
+#
+#     def recursiveDepth(self, cur, counter, maxcounter):
+#         """recursively enters every node
+#         """
+#         if cur.childL is not None:
+#             counter += 1
+#             if counter > int(maxcounter):
+#                 maxcounter = str(counter)
+#             tmp = self.recursiveDepth(cur.childL, counter, maxcounter)
+#             if int(tmp) > int(maxcounter):
+#                 maxcounter = int(tmp)
+#         if cur.childR is not None:
+#             counter += 1
+#             if counter > int(maxcounter):
+#                 maxcounter = str(counter)
+#             tmp = self.recursiveDepth(cur.childR, counter, maxcounter)
+#             if int(tmp) > int(maxcounter):
+#                 maxcounter = int(tmp)
+#         return maxcounter
 
 
 class node:
@@ -137,20 +203,67 @@ class node:
         self.value = s
 
 
+def insIntoEmpty(tree, ndLst):
+    """insert sorted nodes into empty tree
+    """
+    for i in range(len(ndLst)):
+        tree.insert(ndLst[i])
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-    tree = BinarySearchTree()
-    tree.insert(node(4, "a"))
-    tree.insert(node(3, "b"))
-    tree.insert(node(5, "c"))
-    tree.insert(node(3, "a"))
-#     tree.insert(node(3, "a"))
-#     tree.insert(node(5, "b"))
-#     tree.insert(node(6, "c"))
-#     tree.insert(node(2, "g"))
-#     tree.insert(node(10, "x"))
-#     tree.insert(node(0, "d"))
-    print(tree.to_string())
+#     tree = BinarySearchTree()
+#     tree.insert(node(1, "a"))
+#     print(tree.getDepth())
+#     tree.insert(node(2, "b"))
+#     print(tree.getDepth())
+#     tree.insert(node(3, "c"))
+#     print(tree.getDepth())
+#     tree.insert(node(4, "a"))
+#     print(tree.getDepth())
+#     print(tree.to_string())
+#     print(tree.to_string(), print(tree.getDepth()))
+#     lst = []
+#     for i in range(100):
+#         lst.append(node(i, "c"))
+#     random.shuffle(lst)
+#     for i in range(100):
+#         tree.insert(lst[i])
+#     print(tree.to_string(), tree.getDepth())
+#     cur = tree.head.nxt
+#     for i in range(100):
+#         print(cur.getKey())
+#         cur = cur.nxt
+    # Measure Time and depth (Ex 2)
+    srtLst = []
+    unsLst = []
+    # create Lists: sorted and unsorted
+    print("Nodes" + '\t' + "timeSorted" + '\t' + "depthSorted" + '\t' +
+          "timeUnSorted" + '\t' + "depthUnsorted")
+    for n in range(10, 20, 1):
+        for i in range(pow(2, n)):
+            srtLst.append(node(i, "x"))
+            unsLst.append(node(i, "x"))
+        random.shuffle(unsLst)
+        sortedTree = BinarySearchTree()
+        unsortedTree = BinarySearchTree()
+        timeSorted = timeit.timeit(stmt=lambda: insIntoEmpty(sortedTree,
+                                                             srtLst),
+                                   setup="from __main__ import insIntoEmpty",
+                                   number=1)
+        timeUnSorted = timeit.timeit(stmt=lambda: insIntoEmpty(unsortedTree,
+                                                               unsLst),
+                                     setup="from __main__ import insIntoEmpty",
+                                     number=1)
+        depthSorted = sortedTree.getDepth()
+        depthUnsorted = unsortedTree.getDepth()
+        print(str(sortedTree.getItemCount()) + '\t' + str(timeSorted) + '\t' +
+              str(depthSorted) + '\t' + str(timeUnSorted) + '\t' +
+              str(depthUnsorted))
+        unsortedTree = []
+        sortedTree = []
+        srtLst = []
+        unsLst = []
 
 # EOF

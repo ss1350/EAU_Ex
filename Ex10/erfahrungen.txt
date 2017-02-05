@@ -1,0 +1,26 @@
+As one can see from the plots, this datastructure is very efficient for
+unsorted data but inefficient for sorted data (very deep depth because 
+new elements always have to go to the right branch)
+For the shuffled list, the depth usually is much lower, because it is very
+likely that the nodes distribute more evenly.
+Together with the depth comes the difference regarding time needed. 
+The plot line looks exponential, with the time for the shuffled list
+always about one half of the sorted list. This is odd, because one could
+think that the runtime is log2(n) for the balanced tree and n for the 
+worst case that looks just like a list (always right or always left branch)
+The reason may be that the lookup method, which is always O(n) is defining 
+the overall runtime to a large degree.
+
+
+Time needed was over 6 hours. Difficult parts were the combination of
+both data structures and handling the pointers correct when a new element
+is inserted (esp. to head element)
+Another problem was the calculation of the depth. Here I first tried to
+implement a recursive solution. (See outcommented part in Ex10.py). This 
+lead to recursion depth runtime errors. The new implementation, using a
+class variable that is incremented once there exists a longer path from 
+root to leaf is also much more efficient.
+
+Also the to_string() method results in recursion depth runtime errors when
+n is big enough. Unfortunately I couldn't think of a better way to handle it.
+Possible solution would be increasing the limit (sys.setrecursionlimit()).

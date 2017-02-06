@@ -1,0 +1,29 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Exercise 1:
+	Nice
+
+Exercise 2:
+	You didn't have to write an actual algorithm which runs with the runtime
+	given by the recursion equation. The computation of the runtime of
+	the algorithm would be sufficient.
+
+def compute_rumtime(n):
+	if n <= 1:
+		return n
+
+	return 4 * compute_rumtime(math.ceil(n/2)) + n ** 2
+
+	With this you can plot the runtime in comparison to two functions
+	(the upper limit and lower limit) and validate the runtime.
+
+	f1 = c1 * n log(n)
+	f2 = compute_rumtime(n)
+	f3 = c2 * n log(n)
+
+Exercise 3:
+	See images
+
+
+Don't hesitate to ask if you need help or something is unclear.

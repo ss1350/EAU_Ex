@@ -1,0 +1,146 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+insert:
+	Since you are already iterating the tree while inserting an element
+	(lookup call) you could combine both functions:
+	Checking if the element exists and inserting if not.
+
+def insert(self, n):
+	if self.root is None:
+		self.depth = 1
+		...
+
+	level = 1
+	cur = self.root
+	while True:
+		if n.key == cur.key: # the key already exists
+			cur.setValue(n.getValue())
+			return
+
+		level += 1
+		if n.key < cur.key: # key is smaller
+			if cur.childL is None:
+				n.nxt = cur
+				n.pre = cur.pre
+				cur.pre.nxt = n
+				cur.pre = n
+				cur.childL = n
+				n.parent = cur
+				break
+			else:
+				cur = cur.childL
+
+		else: # key is bigger
+			if cur.childR is None:
+				n.pre = cur
+				n.nxt = cur.nxt
+				cur.nxt.pre = n
+				cur.nxt = n
+				cur.childR = n
+				n.parent = cur
+				break
+			else:
+				cur = cur.childR
+
+	self.depth = max(self.depth, level)
+	self.itemCount += 1
+
+
+lookup:
+	The benefit of our tree is that we can lookup elements quite fast O(log n).
+	Since you implemented lookup with the linked list the benefit of the tree is
+	lost. This results in a runtime of O(n) for the lookup method.
+	The key of this method is to traverse the tree downwards.
+
+def lookup(self, key):
+	if self.root is None:
+		return None
+
+	cur = self.root
+	while True:
+		if key == cur.key: # we found our key
+			return (key, cur.getValue())
+
+		if key < cur.key: # key is smaller
+			if cur.childL is None:
+				return None
+			else:
+				cur = cur.childL
+
+		else: # key is bigger
+			if cur.childR is None:
+				return None
+			else:
+				cur = cur.childR
+
+
+to_string:
+	The recursive method is a clean approach often used to demonstrate the
+	method. You could implement this method by using a loop and an managed
+	stack which creates less overhead than on the default limited stack.
+	Another approach could be by traversing the whole tree.
+	I have appended an example for traversing the tree without the need for
+	a stack. The "last" and "last_part" variables are needed since we cannot
+	find the parent of a "None"-element. So we have to save the parent when
+	we traverse down.
+
+def to_string(self):
+	if self.root is None:
+		return "None"
+
+	result = ""
+	cur = self.root
+	cur_part = 0
+
+	last = None
+	last_part = 0
+	while True:
+		print(result)
+		time.sleep(1)
+
+		# A node with a None-child
+		if cur == None:
+			result += 'None'
+
+			cur = last
+			cur_part = last_part + 1
+			continue
+
+		# Did we finish the complete tree?
+		if cur == self.root and cur_part == 2:
+			result += ']'
+			break
+
+		if cur_part == 0: # Start of new element
+			result += '[(' + cur.getKey() + ', ' + cur.getValue()  + '), '
+			result += 'left: '
+
+			last = cur
+			last_part = cur_part
+			cur = cur.childL # go down left
+			cur_part = 0
+
+		elif cur_part == 1: # Print right child
+			result += ', right: '
+
+			last = cur
+			last_part = cur_part
+			cur = cur.childR # go down right
+			cur_part = 0
+
+		elif cur_part == 2: # Print closing bracket
+			result += ']'
+
+			if cur.parent.childR == cur:
+				cur_part = 2
+			elif cur.parent.childL == cur:
+				cur_part = 1
+			else: # This case should never happen
+				print("Error!")
+
+			cur = cur.parent # go up
+
+	return result
+
+Don't hesitate to ask if you need help or something is unclear.

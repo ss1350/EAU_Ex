@@ -1,0 +1,67 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+Since numpy might store the distance as floating point number you should cast
+the final result to int to match the format using in the tests:
+
+return int(a[leny][lenx])
+
+
+You could combine all three standard operations with a min function.
+After this you would have to check if the value could be smaller due to a 0-cost
+replacement.
+
+a[yaddr][xaddr] = min(a[yaddr][xaddr - 1] + 1,
+					a[yaddr - 1][xaddr] + 1,
+					a[yaddr - 1][xaddr - 1] + 1)
+
+if x[xaddr - 1] == y[yaddr - 1]:
+	a[yaddr][xaddr] = min(a[yaddr][xaddr], a[yaddr - 1][xaddr - 1])
+
+
+Consider the special case of the first REPL operation if both strings are equal:
+
+    A
+  0 1
+A 1 0
+
+With this we can transform from "A" to "A" by replacing the letter with itself
+(cost = 0) which yields a value of 0 which is not 1. So you should eliminate
+the special case. You can test the results here: https://planetcalc.com/1721/
+
+This special case is also invalid if both strings start with the same letter:
+
+    H e l l o
+  0 1 2 3 4 5
+H 1 0 1 2 3 4
+i 2 1 1 2 3 4
+
+You can check this by adding the following tests:
+>>> compute_ed_via_table("A","A")
+0
+>>> compute_ed_via_table("Hi","Hello")
+4
+
+With using the "special" case the test fails:
+**********************************************************************
+File "edit_distance.py", line 46, in edit_distance.compute_ed_via_table
+Failed example:
+    compute_ed_via_table("A","A")
+Expected:
+    0
+Got:
+    1
+**********************************************************************
+File "edit_distance.py", line 48, in edit_distance.compute_ed_via_table
+Failed example:
+    compute_ed_via_table("Hi","Hello")
+Expected:
+    4
+Got:
+    5
+**********************************************************************
+1 items had failures:
+   2 of   7 in edit_distance.compute_ed_via_table
+***Test Failed*** 2 failures.
+
+Don't hesitate to ask if you need help or something is unclear.

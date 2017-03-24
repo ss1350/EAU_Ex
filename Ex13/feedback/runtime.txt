@@ -1,0 +1,18 @@
+RAM usage: ~ 7-8 GiB
+
+Loaded map in 89.71 s
+
+Shortest path:
+Distance 331 km, Time 3 hour(s) 56 minute(s), Computation time 81.72 s
+Longest path:
+Distance 525 km, Time 6 hour(s) 52 minute(s)
+
+Fastest path with 130 km/h:
+Distance 369 km, Time 2 hour(s) 57 minute(s), Computation time 84.22 s
+Slowest path with 130 km/h:
+Distance 567 km, Time 4 hour(s) 57 minute(s)
+
+Fastest path with 100 km/h:
+Distance 351 km, Time 3 hour(s) 34 minute(s), Computation time 83.13 s
+Slowest path with 100 km/h:
+Distance 552, Time 5 hour(s) 43 minute(s)

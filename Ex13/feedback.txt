@@ -1,0 +1,74 @@
+Contact: Tobias Faller
+Mail: See ilias
+
+compute_lcc:
+	If you need the index of the iterated value you can use the enumerate
+	method:
+
+	for index, value in enumerate(list):
+		print("%d: %s" % (index, value))
+
+	You should use an additional set of non-visited nodes to compute the
+	largest connected component. With this method you avoid a possible O(n^2)
+	runtime (the largest set is small -> many nodes are not in max_nodes
+		-> compute_reachable_nodes is executed for O(n) nodes)
+	compared to O(n) (if the set is using a hash table).
+
+	max_count = 0
+	max_nodes = []
+	unvisited_nodes = set(self._nodes)
+
+	while len(unvisited_nodes) > 0:
+		n = unvisited_nodes.pop()
+
+		t_nodes_marked, t_num_marked = self.compute_reachable_nodes(n._id)
+		for i, mark in enumerate(t_nodes_marked):
+			if mark == 1:
+				unvisited_nodes.remove(self._nodes[i])
+
+		if t_num_marked > max_count:
+			max_count = t_num_marked
+			max_nodes = t_nodes_marked
+
+	for i, mark in enumerate(max_nodes):
+		if mark == 1:
+			marked_nodes.append(self._nodes[i]._id)
+
+compute_shortest_paths:
+	You can iterate the list of arcs without copying all elements and removing
+	them:
+
+	t_arclst = self._adjacency_lists[n]
+	for t_arc in t_arclst:
+		...
+
+	The key point of the Dijkstra algorithm is to use a priority queue to
+	iterate all unsettled nodes in order of their tentative distance.
+	Because the distance of the nearest node which is not settled cannot change
+	we can "fix" the tentative distance by settling the node.
+	With this we have a runtime of O(n) ... O(n log n) if the nodes are not
+	densely connected.
+
+	With your method the tentative distance of all unsettled nodes is updated
+	each step. Since the set of unsettled nodes is really large the runtime is
+	about O(n^2) which is too much for an input size of ~6.000.000 nodes.
+	Update only the tentative distance of the nodes connected to current settled
+	node. Since we are only calculating the distance from one start node
+	we can sum the distance by adding the length of the arc to the current
+	distance. We don't need to traverse the path backwards to the start node
+	since all nodes with a shorter distance are already solved and the traceback
+	arc and distance is valid for all preceding nodes.
+
+	See feedback/route_planner.py for an implementation.
+
+	You could use the wrapper interface of the package queue instead of the
+	defined helper methods:
+
+	import queue
+	q = queue.PriorityQueue()
+	q.put((key, value))
+
+	if not q.empty():
+		(k, v) = q.get()
+
+Don't hesitate to ask if you need help or something is unclear.
